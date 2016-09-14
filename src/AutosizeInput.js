@@ -41,7 +41,7 @@ const AutosizeInput = React.createClass({
 
 	componentWillReceiveProps: function(nextProps) {
 		
-		console.log('componentWillReceiveProps');
+		//console.log('componentWillReceiveProps');
 		this.setState({
 			inputValue: nextProps.value
 		});
