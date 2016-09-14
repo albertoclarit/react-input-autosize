@@ -110,11 +110,17 @@ const AutosizeInput = React.createClass({
 		this.refs.input.select();
 	},
 	onChange(evt){
+		
+		//fake event
+		var e = {};
+		 e.target={};
+		 e.target.value = evt.target.value;
+		
 		this.setState({
 			inputValue:evt.target.value
 		},()=>{
 			if(this.props.onChange)
-			this.props.onChange(evt);
+			this.props.onChange(e);
 		});
 	},
 	render () {
