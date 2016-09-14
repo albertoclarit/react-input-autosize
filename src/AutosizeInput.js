@@ -31,6 +31,7 @@ const AutosizeInput = React.createClass({
 	getInitialState () {
 		return {
 			inputWidth: this.props.minWidth,
+			inputValue: this.props.value
 		};
 	},
 	componentDidMount () {
@@ -108,8 +109,16 @@ const AutosizeInput = React.createClass({
 	select () {
 		this.refs.input.select();
 	},
+	onChange(evt){
+		this.setState({
+			inputValue:evt.target.value
+		},()=>{
+			if(this.props.onChange)
+			this.props.onChange(evt);
+		});
+	},
 	render () {
-		const sizerValue = [this.props.defaultValue, this.props.value, ''].reduce(function (previousValue, currentValue) {
+		const sizerValue = [this.props.defaultValue, this.state.inputValue, ''].reduce(function (previousValue, currentValue) {
 			if (previousValue !== null && previousValue !== undefined) {
 				return previousValue;
 			}
@@ -131,9 +140,15 @@ const AutosizeInput = React.createClass({
 		delete inputProps.minWidth;
 		delete inputProps.maxWidth;
 		delete inputProps.placeholderIsMinWidth;
+		delete inputProps.onChange;
+		delete inputProps.onAutosize;
+		delete inputProps.value;
+		
 		return (
 			<div className={this.props.className} style={wrapperStyle}>
-				<input {...inputProps} ref="input" />
+				<input {...inputProps} ref="input"
+					onChange={this.onChange}
+					value={this.state.inputValue}/>
 				<div ref="sizer" style={sizerStyle}>{sizerValue}</div>
 				{this.props.placeholder ? <div ref="placeholderSizer" style={sizerStyle}>{this.props.placeholder}</div> : null}
 			</div>

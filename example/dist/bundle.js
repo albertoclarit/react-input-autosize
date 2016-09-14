@@ -33,7 +33,8 @@ var AutosizeInput = React.createClass({
 	},
 	getInitialState: function getInitialState() {
 		return {
-			inputWidth: this.props.minWidth
+			inputWidth: this.props.minWidth,
+			inputValue: this.props.value
 		};
 	},
 	componentDidMount: function componentDidMount() {
@@ -105,8 +106,17 @@ var AutosizeInput = React.createClass({
 	select: function select() {
 		this.refs.input.select();
 	},
+	onChange: function onChange(evt) {
+		var _this = this;
+
+		this.setState({
+			inputValue: evt.target.value
+		}, function () {
+			if (_this.props.onChange) _this.props.onChange(evt);
+		});
+	},
 	render: function render() {
-		var sizerValue = [this.props.defaultValue, this.props.value, ''].reduce(function (previousValue, currentValue) {
+		var sizerValue = [this.props.defaultValue, this.state.inputValue, ''].reduce(function (previousValue, currentValue) {
 			if (previousValue !== null && previousValue !== undefined) {
 				return previousValue;
 			}
@@ -128,10 +138,16 @@ var AutosizeInput = React.createClass({
 		delete inputProps.minWidth;
 		delete inputProps.maxWidth;
 		delete inputProps.placeholderIsMinWidth;
+		delete inputProps.onChange;
+		delete inputProps.onAutosize;
+		delete inputProps.value;
+
 		return React.createElement(
 			'div',
 			{ className: this.props.className, style: wrapperStyle },
-			React.createElement('input', _extends({}, inputProps, { ref: 'input' })),
+			React.createElement('input', _extends({}, inputProps, { ref: 'input',
+				onChange: this.onChange,
+				value: this.state.inputValue })),
 			React.createElement(
 				'div',
 				{ ref: 'sizer', style: sizerStyle },
