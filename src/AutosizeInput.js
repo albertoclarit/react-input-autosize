@@ -46,12 +46,12 @@ const AutosizeInput = React.createClass({
 	},
 	componentDidUpdate (prevProps, prevState) {
 		
-		/*var callevent = false;
+		
 		if (prevState.inputWidth !== this.state.inputWidth) {
 			if (typeof this.props.onAutosize === 'function') {
-				callevent = true;
+				this.props.onAutosize(newInputWidth);
 			}
-		}*/
+		}
 		this.updateInputWidth();
 		
 			
@@ -96,8 +96,7 @@ const AutosizeInput = React.createClass({
 			this.setState({
 				inputWidth: newInputWidth
 			});
-			if(typeof  this.props.onAutosize === 'function')
-				this.props.onAutosize(newInputWidth);
+			
 		}
 
 		
