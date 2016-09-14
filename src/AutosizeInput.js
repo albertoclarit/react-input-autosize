@@ -38,7 +38,6 @@ const AutosizeInput = React.createClass({
 		this.updateInputWidth();
 	},
 	componentDidUpdate (prevProps, prevState) {
-		console.log('componentDidUpdate:' + prevState.inputWidth + ':'+ this.state.inputWidth + ':' + typeof this.props.onAutosize === 'function');
 		if (prevState.inputWidth !== this.state.inputWidth) {
 			if (typeof this.props.onAutosize === 'function') {
 				this.props.onAutosize(this.state.inputWidth);
