@@ -91,9 +91,8 @@ var AutosizeInput = React.createClass({
 			this.setState({
 				inputWidth: newInputWidth
 			});
+			if (typeof this.props.onAutosize === 'function') this.props.onAutosize(newInputWidth);
 		}
-
-		if (typeof this.props.onAutosize === 'function') this.props.onAutosize(newInputWidth);
 	},
 	getInput: function getInput() {
 		return this.refs.input;
