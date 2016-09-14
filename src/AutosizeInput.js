@@ -88,12 +88,13 @@ const AutosizeInput = React.createClass({
 		if (newInputWidth !== this.state.inputWidth) {
 			this.setState({
 				inputWidth: newInputWidth
-			}, function () {
-				if(typeof  this.props.onAutosize === 'function')
-				this.props.onAutosize(this.state.inputWidth);
 			});
 			
 		}
+
+		if(typeof  this.props.onAutosize === 'function')
+			this.props.onAutosize(newInputWidth);
+		
 	},
 	getInput () {
 		return this.refs.input;
