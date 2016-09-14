@@ -39,16 +39,15 @@ const AutosizeInput = React.createClass({
 	},
 	componentDidUpdate (prevProps, prevState) {
 		
-		var callevent = false;
+		/*var callevent = false;
 		if (prevState.inputWidth !== this.state.inputWidth) {
 			if (typeof this.props.onAutosize === 'function') {
 				callevent = true;
 			}
-		}
+		}*/
 		this.updateInputWidth();
 		
-		 if(callevent)
-			 this.props.onAutosize(this.state.inputWidth);
+			
 	},
 	copyInputStyles () {
 		if (!this.isMounted() || !window.getComputedStyle) {
@@ -88,8 +87,12 @@ const AutosizeInput = React.createClass({
 		}
 		if (newInputWidth !== this.state.inputWidth) {
 			this.setState({
-				inputWidth: newInputWidth,
+				inputWidth: newInputWidth
+			}, function () {
+				if(typeof  this.props.onAutosize === 'function')
+				this.props.onAutosize(this.state.inputWidth);
 			});
+			
 		}
 	},
 	getInput () {
