@@ -18,6 +18,8 @@ var AutosizeInput = React.createClass({
 		inputStyle: React.PropTypes.object, // css styles for the input element
 		minWidth: React.PropTypes.oneOfType([// minimum width for input element
 		React.PropTypes.number, React.PropTypes.string]),
+		maxWidth: React.PropTypes.oneOfType([// max width for input element
+		React.PropTypes.number, React.PropTypes.string]),
 		onAutosize: React.PropTypes.func, // onAutosize handler: function(newWidth) {}
 		onChange: React.PropTypes.func, // onChange handler: function(newValue) {}
 		placeholder: React.PropTypes.string, // placeholder text
@@ -40,6 +42,7 @@ var AutosizeInput = React.createClass({
 		this.updateInputWidth();
 	},
 	componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
+		console.log('componentDidUpdate:' + prevState.inputWidth + ':' + this.state.inputWidth + ':' + typeof this.props.onAutosize === 'function');
 		if (prevState.inputWidth !== this.state.inputWidth) {
 			if (typeof this.props.onAutosize === 'function') {
 				this.props.onAutosize(this.state.inputWidth);
@@ -122,6 +125,7 @@ var AutosizeInput = React.createClass({
 		delete inputProps.inputClassName;
 		delete inputProps.inputStyle;
 		delete inputProps.minWidth;
+		delete inputProps.maxWidth;
 		delete inputProps.placeholderIsMinWidth;
 		return React.createElement(
 			'div',
